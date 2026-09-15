@@ -7,10 +7,42 @@ function App() {
 
   return (
 
-      <p>
-        Hello World!
-      </p>
+     <div>
+         <div>
+             <div>
+                 Your Todo's
+             </div>
+             <div>
+                 <table>
+                     <thead>
+                     <tr>
+                         <th>#</th>
+                         <th>Description</th>
+                         <th>Assigned</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td>1</td>
+                         <td>Feed Chicken</td>
+                         <td>Ifti</td>
+
+                     </tr>
+                     <tr>
+                         <td>2</td>
+                         <td>Get HairCut</td>
+                         <td>Ifti</td>
+
+                     </tr>
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
+
   )
 }
 
 export default App
+
+
