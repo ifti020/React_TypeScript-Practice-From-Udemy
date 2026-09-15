@@ -22,7 +22,7 @@ export function TodoTable(props)
 
             {/*now using react loops*/}
                 {props.todos.map(todo => (
-                    <TodoRowItem key={todo.rowNumber} todo={todo} />
+                    <TodoRowItem key={todo.rowNumber} todo={todo}  deleteTodo={props.deleteTodo}/>
 
                 ))}
 

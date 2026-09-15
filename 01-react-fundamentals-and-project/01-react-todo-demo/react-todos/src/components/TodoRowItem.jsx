@@ -6,7 +6,7 @@ export function TodoRowItem(props) {
     const rowAssigned = props.todo.rowAssigned
 
     return (
-        <tr>
+        <tr onClick={() => props.deleteTodo(rowNumber)}>
             <td>{rowNumber}</td>
             <td>{rowDescription}</td>
             <td>{rowAssigned}</td>

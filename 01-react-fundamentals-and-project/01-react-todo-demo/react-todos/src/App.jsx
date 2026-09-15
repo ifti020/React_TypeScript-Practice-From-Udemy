@@ -13,6 +13,7 @@ function App() {
      {rowNumber: 4, rowDescription: 'Clean Bedroom' , rowAssigned: 'User Four'},
      {rowNumber: 5, rowDescription: 'Get Haircut' , rowAssigned: 'User Five'}
      ]
+const [showForm, setShowForm] = useState(false)
 
  const [todos, setTodos] = useState(initialTodos)
 
@@ -34,6 +35,11 @@ function App() {
      console.log(todos)
  }
 
+ const deleteTodo = (deleteTodoRowNumber) =>{
+     const filtered = todos.filter(todo => todo.rowNumber !== deleteTodoRowNumber)
+     setTodos(filtered)
+ }
+
   return (
 
      <div className='full-table'>
@@ -42,12 +48,12 @@ function App() {
                  Your Todo's
              </div>
              <div>
-                <TodoTable todos={todos}/>
-                 <button onClick={addTodo}>
-                     Click Me!
+                <TodoTable todos={todos} deleteTodo={deleteTodo} />
+                 <button onClick={() => setShowForm(!showForm)}>
+                     { showForm ? 'Hide Form' : 'Add New Todo' }
                  </button>
              </div>
-             <NewTodoForm addTodo={addTodo}/>
+             {showForm && <NewTodoForm addTodo={addTodo}/>}
          </div>
      </div>
 
