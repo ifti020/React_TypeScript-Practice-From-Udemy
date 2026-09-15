@@ -1,15 +1,15 @@
 // create our first components in react
-export function TodoRowItem() {
+export function TodoRowItem(props) {
 
-    const rowNumber = 1
-    const rowDescription = 'Feed Chicken'
-    const rowAssigned = 'Ifti'
+    const rowNumber = props.todo.rowNumber
+    const rowDescription = props.todo.rowDescription
+    const rowAssigned = props.todo.rowAssigned
 
     return (
         <tr>
-            <td>1</td>
-            <td>Feed Chicken Baby</td>
-            <td>Ifti</td>
+            <td>{rowNumber}</td>
+            <td>{rowDescription}</td>
+            <td>{rowAssigned}</td>
 
         </tr>
 
