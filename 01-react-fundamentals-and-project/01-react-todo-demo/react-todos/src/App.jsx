@@ -24,6 +24,8 @@ function App() {
                      </thead>
                      <tbody>
                         <TodoRowItem/>
+                        <TodoRowItem/>
+                        <TodoRowItem/>
                      <tr>
                          <td>2</td>
                          <td>Get HairCut</td>
