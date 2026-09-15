@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { TodoRowItem } from './components/TodoRowItem'
 
 import './App.css'
 
@@ -22,12 +23,7 @@ function App() {
                      </tr>
                      </thead>
                      <tbody>
-                     <tr>
-                         <td>1</td>
-                         <td>Feed Chicken</td>
-                         <td>Ifti</td>
-
-                     </tr>
+                        <TodoRowItem/>
                      <tr>
                          <td>2</td>
                          <td>Get HairCut</td>
