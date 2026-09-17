@@ -21,9 +21,11 @@ class Customer {
     }
 }
 // lets create an instance
-let myCustomer = new Customer("Parama", "Haque");
-// myCustomer.firstName = "Parama";
-// myCustomer.lastName="Farhat";
+let myCustomer = new Customer("Ifti", "Haque");
+
+myCustomer.firstName = "Parama";
+myCustomer.lastName="Farhat";
+
 console.log(myCustomer.firstName);
 console.log(myCustomer.lastName);
 //# sourceMappingURL=Customer.js.map
