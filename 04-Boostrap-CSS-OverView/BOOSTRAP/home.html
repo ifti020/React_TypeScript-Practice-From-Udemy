@@ -13,13 +13,17 @@
   </head>
   <body>
     <div class="container m-3">
-      <p>Explore Progress Bar</p>
+      <p>Explore Collapse</p>
     </div>
 
     <div class="container m-3">
-      <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 83%"></div>
-      </div>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" 
+        data-bs-target="#collapseExample"> Click Here</button>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body"> Hide comments until button is pressed</div>
+
+        </div>
+      
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
