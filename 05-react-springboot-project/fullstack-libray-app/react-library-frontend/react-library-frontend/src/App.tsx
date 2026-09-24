@@ -1,13 +1,14 @@
-import { useState } from 'react'
-
 import './App.css'
+import {NavigationBar} from "./layouts/navigation-bars/NavigationBar.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
+         <>
+          <NavigationBar/>
+        </>
 
-      <h1> Welcome to this Fullstack Library app by Ifti.</h1>
   )
 }
 
