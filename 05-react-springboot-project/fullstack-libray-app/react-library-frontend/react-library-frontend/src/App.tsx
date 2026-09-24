@@ -1,20 +1,14 @@
 import './App.css'
 import {NavigationBar} from "./layouts/navigation-bars/NavigationBar.tsx";
-import {ExploreTopBooks} from "./layouts/home-page/ExploreTopBooks.tsx";
-import {Carousel} from "./layouts/home-page/Carousel.tsx";
-import {Heros} from "./layouts/home-page/Heros.tsx";
-import {LibraryServices} from "./layouts/home-page/LibraryServices.tsx";
+
+import {HomePage} from "./layouts/home-page/HomePage.tsx";
 
 function App() {
-
 
   return (
          <>
           <NavigationBar />
-             <ExploreTopBooks />
-             <Carousel />
-             <Heros />
-             <LibraryServices/>
+             <HomePage />
         </>
 
   )
