@@ -1,4 +1,14 @@
+import {useEffect} from "react";
+
 export const Carousel = () => {
+
+  useEffect(() => {
+    const fetchBooks=async () =>{
+      console.log('Fetching books');
+    };
+    fetchBooks();
+  }, []);
+
   return (
     // <div className="container mt-5" style={{ height: 700 }}>
       <div className="container mt-5" >
