@@ -12,22 +12,39 @@ interface BookResponse {
 export const Carousel = () => {
 
   const [books, setBooks] = useState<BookModel[]>([]);
+  const [isLoading , setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState <string | null > (null);
 
   useEffect(() => {
-    const fetchBooks=async () =>{
-      // console.log('Fetching books');
-     const response = await fetch ("http://localhost:8080/api/books?pageNo=0&pageSize=3");
-     if (!response.ok)
-     {
-       throw new Error("Failed to fetch books.");
-     }
-     const data: BookResponse = await response.json();
-      setBooks(data.content);
 
+    const fetchBooks=async () => {
+        try{
+        // console.log('Fetching books');
+        const response = await fetch("http://localhost:8080/api/books?pageNo=0&pageSize=3");
+        if (!response.ok) {
+            throw new Error("Failed to fetch books.");
+        }
+        const data: BookResponse = await response.json();
+
+        setBooks(data.content);
+        setIsLoading(false);
+    } catch(error){
+        setIsLoading(false);
+        setHttpError(
+            error instanceof Error ? error.message : "An error occurred."
+        );
+          }
     };
 
     fetchBooks();
   }, []);
+
+  if (isLoading){
+      return <p>Loading...</p>;
+  }
+  if(httpError){
+      return <div>{httpError}</div>
+  }
 
   return (
     // <div className="container mt-5" style={{ height: 700 }}>
