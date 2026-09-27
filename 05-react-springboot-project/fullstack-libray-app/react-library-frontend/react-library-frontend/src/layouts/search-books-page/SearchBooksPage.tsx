@@ -6,15 +6,24 @@ import {SpinnerLoading} from "../../componenets/SpinnerLoading.tsx";
 
 export const SearchBooksPage = () => {
 
+  const BOOKS_PER_PAGE =5;
+
   const [books, setBooks] = useState<BookModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState<string |null >(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalBooks, setTotalBooks] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
     const fetchBooks = async () => {
       try{
-        const data = await bookService.getBooks(0,5);
+        const pageNo  = currentPage -1;
+        const data = await bookService.getBooks(pageNo,5);
         setBooks(data.content)
+        setTotalBooks(data.page.totalElements);
+        setTotalPage(data.page.totalPages);
+
         setIsLoading(false);
       } catch(error) {
         setIsLoading(false);
@@ -30,6 +39,9 @@ export const SearchBooksPage = () => {
   if(httpError) {
     return <div>{httpError}</div>
   }
+
+  const indexOfFirstBook = (currentPage -1 ) * BOOKS_PER_PAGE +1;
+  const lastItem = Math.min(currentPage * BOOKS_PER_PAGE, totalBooks);
 
   return (
     <>
@@ -95,10 +107,10 @@ export const SearchBooksPage = () => {
           </div>
 
           <div className="mt-3">
-            <h5>Number of results: (3)</h5>
+            <h5>Number of results: ({totalBooks})</h5>
           </div>
 
-          <p>1 to 3 of 3 items:</p>
+          <p>{indexOfFirstBook} to {lastItem} of {totalBooks} items:</p>
 
           {books.map((book) => (
               <SearchBook book={book} key ={ book.id}/>
