@@ -6,9 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-
 
 @RestController
 @RequestMapping("/api/books")
@@ -39,6 +36,17 @@ public class BookController {
                                             )
     {
             return bookService.findByTitleContaining(title,pageNo,pageSize);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/search/category")
+    public Page<Book> findByCategory(
+            @RequestParam String category,
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "5") int pageSize
+                                )
+    {
+        return  bookService.findByCategory(category,pageNo,pageSize);
     }
 
 }
