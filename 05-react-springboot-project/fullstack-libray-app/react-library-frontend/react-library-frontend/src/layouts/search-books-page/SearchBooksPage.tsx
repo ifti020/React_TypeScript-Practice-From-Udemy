@@ -1,26 +1,42 @@
 import type { BookModel } from "../../models/BookModel";
 import {SearchBook} from "./componenets/SearchBook.tsx";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {bookService} from "../../services/bookService.ts";
 import {SpinnerLoading} from "../../componenets/SpinnerLoading.tsx";
 import {Pagination} from "../../componenets/Pagination.tsx";
+import * as React from "react";
 
 export const SearchBooksPage = () => {
 
   const BOOKS_PER_PAGE =5;
-
   const [books, setBooks] = useState<BookModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [httpError, setHttpError] = useState<string |null >(null);
+  const [httpError, setHttpError] = useState<string | null >(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalBooks, setTotalBooks] = useState(0);
   const [totalPages, setTotalPage] = useState(0);
 
+  const[searchInput, setSearchInput] = useState("");
+  const[searchTerm , setSearchTerm] = useState("");
+
   useEffect(() => {
     const fetchBooks = async () => {
       try{
-        const pageNo  = currentPage -1;
-        const data = await bookService.getBooks(pageNo,5);
+        const pageNo= currentPage -1;
+        let data;
+        if(searchTerm) {
+          data = await bookService.searchBooksByTitle(
+              searchTerm,
+              pageNo,
+              BOOKS_PER_PAGE
+          );
+        }
+          else
+          {
+            data = await bookService.getBooks(pageNo, BOOKS_PER_PAGE);
+
+          }
+
         setBooks(data.content)
         setTotalBooks(data.page.totalElements);
         setTotalPage(data.page.totalPages);
@@ -34,11 +50,28 @@ export const SearchBooksPage = () => {
     };
     fetchBooks();
 
-  },[currentPage]);
-  if (isLoading) {
+  },[currentPage, searchTerm]);
+
+  const handleSearch = useCallback( () =>{
+    setCurrentPage(1);
+    setSearchTerm(searchInput);
+      }, [setCurrentPage, searchInput]);
+
+  const handleInputKeyDown = useCallback(
+      (e: React.KeyboardEvent<HTMLInputElement> ) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  },
+      [handleSearch]
+  );
+
+  if (isLoading)
+  {
     return <SpinnerLoading/>;
   }
-  if(httpError) {
+  if(httpError)
+  {
     return <div>{httpError}</div>
   }
 
@@ -57,8 +90,11 @@ export const SearchBooksPage = () => {
                   type="search"
                   placeholder="Search"
                   aria-labelledby="Search"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  onKeyDown={handleInputKeyDown}
                 />
-                <button className="btn btn-outline-success">Search</button>
+                <button className="btn btn-outline-success" onClick={handleSearch}>Search</button>
               </div>
             </div>
 
