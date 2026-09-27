@@ -3,6 +3,7 @@ import {SearchBook} from "./componenets/SearchBook.tsx";
 import {useEffect, useState} from "react";
 import {bookService} from "../../services/bookService.ts";
 import {SpinnerLoading} from "../../componenets/SpinnerLoading.tsx";
+import {Pagination} from "../../componenets/Pagination.tsx";
 
 export const SearchBooksPage = () => {
 
@@ -13,7 +14,7 @@ export const SearchBooksPage = () => {
   const [httpError, setHttpError] = useState<string |null >(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalBooks, setTotalBooks] = useState(0);
-  const [totalPage, setTotalPage] = useState(0);
+  const [totalPages, setTotalPage] = useState(0);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -23,8 +24,9 @@ export const SearchBooksPage = () => {
         setBooks(data.content)
         setTotalBooks(data.page.totalElements);
         setTotalPage(data.page.totalPages);
-
         setIsLoading(false);
+
+        window.scrollTo(0, 0);
       } catch(error) {
         setIsLoading(false);
         setHttpError(error instanceof Error ? error.message : "An error occurred.");
@@ -32,7 +34,7 @@ export const SearchBooksPage = () => {
     };
     fetchBooks();
 
-  },[]);
+  },[currentPage]);
   if (isLoading) {
     return <SpinnerLoading/>;
   }
@@ -115,6 +117,13 @@ export const SearchBooksPage = () => {
           {books.map((book) => (
               <SearchBook book={book} key ={ book.id}/>
           ))}
+          {totalPages > 1 && (
+              <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  paginate={setCurrentPage}
+              />
+          ) }
         </div>
       </div>
     </>
