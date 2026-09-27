@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -20,10 +22,23 @@ public class BookController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public Page<Book> getAllBooks(@RequestParam(defaultValue = "0") int pageNo,
-                                  @RequestParam(defaultValue = "5") int pageSize)
+    public Page<Book> getAllBooks(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "5") int pageSize
+                                )
     {
         return bookService.getAllBooks(pageNo,pageSize);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/search/title")
+    public Page<Book> findByTitleContaining(
+            @RequestParam String title,
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "5") int pageSize
+                                            )
+    {
+            return bookService.findByTitleContaining(title,pageNo,pageSize);
     }
 
 }

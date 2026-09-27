@@ -27,4 +27,12 @@ public class BookServiceImpl implements BookService{
 
         return bookRepository.findAll(pageable);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<Book> findByTitleContaining(String title, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo,pageSize );
+
+        return bookRepository.findByTitleContaining(title, pageable);
+    }
 }
