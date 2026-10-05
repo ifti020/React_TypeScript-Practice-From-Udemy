@@ -15,3 +15,10 @@ let ifti = () => {
  }
 
  console.log(ifti());
+ 
+ // arrow function with multiple parameter
+
+ let number2=(x, y) => {
+    return x+y;
+ };
+ console.log(number2(5,10));
