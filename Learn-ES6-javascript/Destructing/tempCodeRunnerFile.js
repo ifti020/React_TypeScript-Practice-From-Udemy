@@ -1,0 +1,3 @@
+residance:{
+    //     hall: "SDZH",
+    // },
