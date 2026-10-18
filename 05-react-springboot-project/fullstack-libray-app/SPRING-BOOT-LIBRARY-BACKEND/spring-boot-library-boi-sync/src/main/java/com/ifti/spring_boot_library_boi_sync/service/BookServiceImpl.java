@@ -43,4 +43,10 @@ public class BookServiceImpl implements BookService{
 
         return bookRepository.findByCategory(category,pageable);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Book getBookById(Long id) {
+        return bookRepository.findById(id).orElse(null);
+    }
 }

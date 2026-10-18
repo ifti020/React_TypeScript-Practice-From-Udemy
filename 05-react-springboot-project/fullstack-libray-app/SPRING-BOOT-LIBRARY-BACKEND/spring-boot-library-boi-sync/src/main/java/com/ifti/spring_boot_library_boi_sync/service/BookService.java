@@ -10,4 +10,6 @@ public interface BookService {
     Page<Book>findByTitleContaining(String title,  int pageNo, int pageSize);
 
     Page<Book> findByCategory(String category, int pageNo, int pageSize);
+
+    Book getBookById (Long id);
 }
