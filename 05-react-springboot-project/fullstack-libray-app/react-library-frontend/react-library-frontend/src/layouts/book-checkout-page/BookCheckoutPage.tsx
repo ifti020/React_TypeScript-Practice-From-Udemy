@@ -3,6 +3,7 @@ import type {BookModel} from "../../models/BookModel.ts";
 import {useEffect, useState} from "react";
 import {bookService} from "../../services/bookService.ts";
 import {SpinnerLoading} from "../../componenets/SpinnerLoading.tsx";
+import {CheckoutBox} from "./component/CheckoutBox.tsx";
 
 export const BookCheckoutPage = () => {
 
@@ -58,6 +59,8 @@ export const BookCheckoutPage = () => {
               <p className="lead">{book?.description}</p>
             </div>
           </div>
+            <CheckoutBox book={book!}/>
+
         </div>
         <hr />
       </div>
@@ -78,6 +81,7 @@ export const BookCheckoutPage = () => {
             <p className="lead">{book?.description}</p>
           </div>
         </div>
+        <CheckoutBox book={book!}/>
         <hr />
       </div>
     </>
