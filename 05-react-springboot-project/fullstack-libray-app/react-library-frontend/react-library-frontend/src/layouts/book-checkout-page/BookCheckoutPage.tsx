@@ -4,10 +4,14 @@ import {useEffect, useState} from "react";
 import {bookService} from "../../services/bookService.ts";
 import {SpinnerLoading} from "../../componenets/SpinnerLoading.tsx";
 import {CheckoutBox} from "./component/CheckoutBox.tsx";
+import type {ReviewModel} from "../../models/ReviewModel.ts";
+import {LatestReviews} from "./component/LatestReviews.tsx";
 
 export const BookCheckoutPage = () => {
 
   const bookId = window.location.pathname.split("/")[2];
+
+  const [reviews , setReviews] = useState<ReviewModel[]>([]);
 
   const [book, setBook] = useState<BookModel >();
 
@@ -18,10 +22,16 @@ export const BookCheckoutPage = () => {
   useEffect(() => {
     const fetchBook = async  () =>{
       try{
-        const responseJson = await bookService.getBookById(bookId);
-        setIsLoading(false);
-        setBook(responseJson);
+        const [bookData, reviewData] = await Promise.all( [
+            bookService.getBookById(bookId),
+            bookService.getBookReviewsById(bookId),
+
+        ]);
+      setBook(bookData);
+      setReviews(reviewData.content);
+      setIsLoading(false);
       }
+
       catch (error)
       {
         setIsLoading(false);
@@ -63,6 +73,7 @@ export const BookCheckoutPage = () => {
 
         </div>
         <hr />
+        <LatestReviews reviews={reviews} bookId={book?.id}/>
       </div>
       {/* Mobile View */}
       <div className="container d-lg-none mt-5">
@@ -83,6 +94,7 @@ export const BookCheckoutPage = () => {
         </div>
         <CheckoutBox book={book!}/>
         <hr />
+        <LatestReviews reviews={reviews} bookId={book?.id}/>
       </div>
     </>
   );
