@@ -1,8 +1,17 @@
 import type {BookModel} from "../models/BookModel";
+import type {ReviewModel} from "../models/ReviewModel.ts";
 const BASE_URL= import.meta.env.VITE_API_BASE_URL;
 
 interface BookResponse {
     content : BookModel[];
+    page: {
+        totalElements: number;
+        totalPages: number;
+    };
+}
+
+interface ReviewResponse {
+    content : ReviewModel[];
     page: {
         totalElements: number;
         totalPages: number;
@@ -24,7 +33,7 @@ export const bookService = {
         if (!response.ok) {
             throw new Error("Failed to fetch books.");
         }
-            return  await response.json();
+            return  response.json();
     },
 
     async searchBooksByTitle( title: string , pageNo:number , pageSize: number) : Promise <BookResponse>{
@@ -34,7 +43,7 @@ export const bookService = {
         if (!response.ok) {
             throw new Error("Failed to search books.");
         }
-        return await response.json();
+        return response.json();
     },
 
     async searchBooksByCategory( category: string , pageNo:number , pageSize: number) : Promise <BookResponse>{
@@ -44,7 +53,7 @@ export const bookService = {
         if (!response.ok) {
             throw new Error("Failed to by category.");
         }
-        return await response.json();
+        return response.json();
     },
 
     async getBookById(id : string ): Promise < BookModel>
@@ -53,7 +62,16 @@ export const bookService = {
         if (!response.ok) {
             throw new Error("Failed to fetch book details.");
         }
-        return await response.json();
+        return response.json();
+    },
+
+    async getBookReviewsById(bookId: string ): Promise<ReviewResponse>{
+        const response = await fetch (`${BASE_URL}/reviews/book/${bookId}`);
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch book reviews.");
+        }
+        return response.json();
     }
 
 
