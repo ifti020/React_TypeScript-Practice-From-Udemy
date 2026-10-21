@@ -24,8 +24,8 @@ export const LatestReviews :React.FC<LatestReviewsProp> = ({
                   {reviews.slice(0,3).map((eachReview) =>(
                       <Review review={eachReview} key={eachReview.id}/>
                   ))}
-                  <div className={"m-3"}>
-                      <Link type="button" className={"btn mai-color btn-md text-white"} to={`/reviewlist/${bookId}`}>
+                  <div className="m-3">
+                      <Link type="button" className={"btn main-color btn-md text-white"} to={`/reviewlist/${bookId}`}>
                           Read all reviews
                       </Link>
                   </div>
